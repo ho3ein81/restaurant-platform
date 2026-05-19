@@ -1,5 +1,3 @@
-// ✅ یک‌جا تعریف رنگ‌های اصلی (theme-aware design tokens)
-
 export const themeTokens = {
   colors: {
     primary: {
@@ -21,4 +19,6 @@ export const themeTokens = {
     lg: "rounded-xl",
     full: "rounded-full",
   },
-}
+} as const
+
+export type ButtonVariant = keyof typeof themeTokens.colors

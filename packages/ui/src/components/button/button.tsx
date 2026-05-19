@@ -1,54 +1,42 @@
-import * as React from "react"
-import { cn } from "../../utils/cn"
-import { themeTokens } from "../../styles/tokens"
+import { ReactNode } from "react";
+import { themeTokens, ButtonVariant } from "../../styles/tokens";
+import { cn } from "../../utils/cn";
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children?: React.ReactNode
-  variant?: "primary" | "secondary" | "destructive"
-  styleType?: "solid" | "outline"
-  size?: "sm" | "md" | "lg"   // ⚡ اضافه شد
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: ButtonVariant;
+  isOutline?: boolean;
+  radius?: keyof typeof themeTokens.radius;
+  children: ReactNode;
 }
 
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      className,
-      children,
-      variant = "primary",
-      styleType = "solid",
-      size = "md", // پیش‌فرض
-      ...props
-    },
-    ref
-  ) => {
-    const colorClasses =
-      styleType === "outline"
-        ? themeTokens.colors[variant].outline
-        : themeTokens.colors[variant].DEFAULT
+export function Button({
+  variant = "primary",
+  isOutline = false,
+  radius = "full", // مطابق فیگما که کپسولی بود
+  className,
+  children,
+  ...props
+}: ButtonProps) {
+  
+  // استخراج کلاس‌های رنگی بر اساس Variant و Outline
+  const variantStyles = isOutline 
+    ? themeTokens.colors[variant].outline 
+    : themeTokens.colors[variant].DEFAULT;
 
-    const sizeClasses = {
-      sm: "h-8 px-3 text-sm",
-      md: "h-10 px-4 text-base",
-      lg: "h-12 px-6 text-lg",
-    }
+  // استخراج کلاس Border Radius
+  const radiusStyle = themeTokens.radius[radius];
 
-    return (
-      <button
-        ref={ref}
-        className={cn(
-          "inline-flex items-center justify-center font-medium transition-all",
-          themeTokens.radius.md,
-          sizeClasses[size],
-          colorClasses,
-          className
-        )}
-        {...props}
-      >
-        {children}
-      </button>
-    )
-  }
-)
-
-Button.displayName = "Button"
+  return (
+    <button
+      className={cn(
+        "inline-flex items-center justify-center px-6 py-2.5 font-medium transition-all active:scale-95 disabled:opacity-50",
+        variantStyles,
+        radiusStyle,
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+}

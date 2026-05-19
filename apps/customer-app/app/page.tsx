@@ -1,27 +1,9 @@
-import { Button } from "@restaurant/ui";
+import { MenuSection } from "@/features/menu/components/MenuSection"
 
-export default function Page() {
+export default function HomePage() {
   return (
-    <main className="p-10 flex flex-col gap-4">
-      <h1 className="text-2xl font-bold">
-        Restaurant Platform
-      </h1>
-
-      <div className="flex gap-4">
-        <Button>Primary</Button>
-
-        <Button variant="secondary">
-          Secondary
-        </Button>
-
-        <Button variant="destructive">
-          Delete
-        </Button>
-
-        <Button styleType="outline">
-          Outline
-        </Button>
-      </div>
+    <main className="p-6">
+      <MenuSection />
     </main>
-  );
+  )
 }

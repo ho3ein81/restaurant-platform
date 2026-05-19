@@ -1,7 +1,12 @@
 {
-  "extends": "../tsconfig/base.json",
   "compilerOptions": {
-    "outDir": "dist"
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "strict": true
   },
   "include": ["src"]
 }
